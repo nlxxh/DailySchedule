@@ -184,7 +184,8 @@
 * generics
 * threads
 * conversations
-练习题的代码和README提交在[DailySchedule/exercises](https://github.com/nlxxh/DailySchedule/tree/master/exercises)一栏，一开始提交到GitHub时遇到了报错failed to push some refs to git，后来通过[教程](https://www.cnblogs.com/yiduobaozhiblog1/p/9125465.html)成功解决，完成全部练习的截图如下![image](https://github.com/nlxxh/picture/blob/master/368526ec23cab14eb405e26f10a5059.png)
+练习题的代码和README提交在[DailySchedule/exercises](https://github.com/nlxxh/DailySchedule/tree/master/exercises)一栏，一开始提交到GitHub时遇到了报错failed to push some refs to git，后来通过[教程](https://www.cnblogs.com/yiduobaozhiblog1/p/9125465.html)成功解决，完成全部练习的截图如下
+![image](https://github.com/nlxxh/picture/blob/master/368526ec23cab14eb405e26f10a5059.png)
 
 ### 事件3：
 DailySchedule的格式修改的好看了一点
