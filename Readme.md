@@ -166,5 +166,32 @@
 
 ### 预计计划：  
 继续看[Rust 程序设计语言 简体中文版](https://kaisery.github.io/trpl-zh-cn/title-page.html)；解决完小练习题；开始用Rust语言编中小型程序；解决引用、copy trait的问题；改一下DailySchedule的格式
+<span id="Day006"></span>
+## Day 6
+
+### 事件1：
+继续学习[Rust 程序设计语言 简体中文版](https://kaisery.github.io/trpl-zh-cn/title-page.html)，完成到
+* 智能指针前四节
+* 无畏并发  
+线程、共享状态都是很新的概念，以前从来没有见到过，现在感觉理解还是比较浅显，随着学习的深入应该会有更深的理解
+
+### 事件2：
+终于解决了所有的小练习题，今天完成了
+* option
+* clippy     
+* standard_library_types
+* traits
+* generics
+* threads
+* conversations
+练习题的代码和README提交在[DailySchedule/exercises](https://github.com/nlxxh/DailySchedule/tree/master/exercises)一栏，一开始提交到GitHub时遇到了报错failed to push some refs to git，后来通过[教程](https://www.cnblogs.com/yiduobaozhiblog1/p/9125465.html)成功解决，完成全部练习的截图如下![image](https://github.com/nlxxh/picture/blob/master/368526ec23cab14eb405e26f10a5059.png)
+
+### 事件3：
+DailySchedule的格式修改的好看了一点
+
+
+### 预计计划：  
+继续学习《Rust 编程之道》第十章的示例代码；开始用Rust语言编中小型程序；解决引用、copy trait的问题；复盘一下小练习题
+
 
 
