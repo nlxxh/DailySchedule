@@ -193,6 +193,46 @@ DailySchedule的格式修改的好看了一点
 
 ### 预计计划：  
 继续学习《Rust 编程之道》第十章的示例代码；开始用Rust语言编中小型程序；解决引用、copy trait的问题；复盘一下小练习题
+<span id="Day007"></span>
+## Day 7
 
+### 事件1：
+继续学习[Rust 程序设计语言 简体中文版](https://kaisery.github.io/trpl-zh-cn/title-page.html)，完成到
+* Rust 的面向对象编程特性
 
+### 事件2：
+完成了编写4道中小型练习题，是来自Learn C The Hard Way 中文版(https://docs.kilvn.com/lcthw-zh/)和Learn-Python-3-the-Hard-Way(https://github.com/cnR1ce/Learn-Python-3-the-Hard-Way/tree/master/codes)的练习题
+
+### 事件3：
+自己编了几个程序，初步搞懂了copy trait；又复习了一下之前觉得比较困难的小练习题[DailySchedule/exercises](https://github.com/nlxxh/DailySchedule/tree/master/exercises)，关于迭代器的方法看
+标准库有点慢，感觉这个[教程](https://blog.csdn.net/guiqulaxi920/article/details/78823541?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.compare&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.compare)还讲的比较细致
+
+### 事件4：
+完成了《Rust 编程之道》第十章的示例代码，上传到了[DailySchedule/csv_challenge](https://github.com/nlxxh/DailySchedule/tree/master/csv_challenge)，根据这个示例代码对Rust的模块化编程有了更深入的了解。另外，按照书上的代码我开始不能正确运行，会提示main error:Program("column name doesn't exist in the input file")，发现是core/write.rs的问题，debug发现headers都可以正常输出，那么就是和修改的目标column匹配的问题，经过修改，运行正确
+```
+//let column_number=columns.iter().position(|&e| e==column);
+let column_number=columns.iter().position(|&e| e.trim()==column);
+```
+
+### 预计计划：  
+开始step1 risc-v系统结构的学习；继续用Rust语言编中小型程序
+<span id="Day008"></span>
+## Day 8
+
+### 事件1：
+基本完成阅读《Rust 编程之道》第三章的内容，因为已经仔细过了一遍[Rust 程序设计语言 简体中文版](https://kaisery.github.io/trpl-zh-cn/title-page.html)，所以看的比较快
+
+### 事件2：
+完成了step2的[环境部署](https://rcore-os.github.io/rCore-Tutorial-deploy/docs/pre-lab/env.html)，安装花了比较多的时间
+
+### 预计计划：  
+开始step1 risc-v系统结构的学习；继续用Rust语言编中小型程序
+<span id="Day009"></span>
+## Day 9
+
+### 事件1：
+阅读《计算机组成与设计（RISC-V版）》，今天事情比较多，学习的时间少，要追赶一下进度
+
+### 预计计划：  
+继续step1 risc-v系统结构的学习；继续用Rust语言编中小型程序
 
