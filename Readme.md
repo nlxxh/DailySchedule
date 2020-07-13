@@ -201,7 +201,7 @@ DailySchedule的格式修改的好看了一点
 * Rust 的面向对象编程特性
 
 ### 事件2：
-完成了编写5道中小型练习题，是来自Learn C The Hard Way 中文版(https://docs.kilvn.com/lcthw-zh/)和Learn-Python-3-the-Hard-Way(https://github.com/cnR1ce/Learn-Python-3-the-Hard-Way/tree/master/codes)的练习题，都比较简单
+完成了编写5道中小型练习题，是来自[Learn C The Hard Way 中文版](https://docs.kilvn.com/lcthw-zh/)和[Learn-Python-3-the-Hard-Way](https://github.com/cnR1ce/Learn-Python-3-the-Hard-Way/tree/master/codes)的练习题，都比较简单
 
 ### 事件3：
 自己编了几个程序，初步搞懂了copy trait；又复习了一下之前觉得比较困难的小练习题[DailySchedule/exercises](https://github.com/nlxxh/DailySchedule/tree/master/exercises)，关于迭代器的方法看
