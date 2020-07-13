@@ -201,7 +201,7 @@ DailySchedule的格式修改的好看了一点
 * Rust 的面向对象编程特性
 
 ### 事件2：
-完成了编写4道中小型练习题，是来自Learn C The Hard Way 中文版(https://docs.kilvn.com/lcthw-zh/)和Learn-Python-3-the-Hard-Way(https://github.com/cnR1ce/Learn-Python-3-the-Hard-Way/tree/master/codes)的练习题
+完成了编写5道中小型练习题，是来自Learn C The Hard Way 中文版(https://docs.kilvn.com/lcthw-zh/)和Learn-Python-3-the-Hard-Way(https://github.com/cnR1ce/Learn-Python-3-the-Hard-Way/tree/master/codes)的练习题，都比较简单
 
 ### 事件3：
 自己编了几个程序，初步搞懂了copy trait；又复习了一下之前觉得比较困难的小练习题[DailySchedule/exercises](https://github.com/nlxxh/DailySchedule/tree/master/exercises)，关于迭代器的方法看
@@ -223,7 +223,7 @@ let column_number=columns.iter().position(|&e| e.trim()==column);
 基本完成阅读《Rust 编程之道》第三章的内容，因为已经仔细过了一遍[Rust 程序设计语言 简体中文版](https://kaisery.github.io/trpl-zh-cn/title-page.html)，所以看的比较快
 
 ### 事件2：
-完成了step2的[环境部署](https://rcore-os.github.io/rCore-Tutorial-deploy/docs/pre-lab/env.html)，安装花了比较多的时间
+完成了step2 实验的[环境部署](https://rcore-os.github.io/rCore-Tutorial-deploy/docs/pre-lab/env.html)，配置环境花了比较多的时间
 
 ### 预计计划：  
 开始step1 risc-v系统结构的学习；继续用Rust语言编中小型程序
@@ -231,8 +231,31 @@ let column_number=columns.iter().position(|&e| e.trim()==column);
 ## Day 9
 
 ### 事件1：
-阅读《计算机组成与设计（RISC-V版）》，今天事情比较多，学习的时间少，要追赶一下进度
+阅读了一部分《计算机组成与设计（RISC-V版）》，今天事情比较多，学习的时间少，要追赶一下进度
+
+### 事件2：
+参加第一次线上交流
 
 ### 预计计划：  
 继续step1 risc-v系统结构的学习；继续用Rust语言编中小型程序
+<span id="Day0010"></span>
+## Day 10
+
+### 事件1：
+完成阅读《计算机组成与设计（RISC-V版）》的前两章，很多内容都是和计算机系统基础有重合的，看的比较顺利
+
+### 事件2：
+学习了一部分[RISC-V手册：一本开源指令集的指南](http://crva.ict.ac.cn/documents/RISC-V-Reader-Chinese-v2p1.pdf)的第十章内容
+
+### 事件3：
+观看了[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)前三章的内容，刚开始入门操作系统的内容，进展不是很快，结合[RISC-V手册：一本开源指令集的指南](http://crva.ict.ac.cn/documents/RISC-V-Reader-Chinese-v2p1.pdf)，初步搞懂了中断的处理机制，还需要实验检验
+
+### 事件4：
+完成阅读《Rust 编程之道》第四章的内容
+
+### 事件5：
+按照step2 实验的[gdb调试方法](https://rcore-os.github.io/rCore-Tutorial-deploy/docs/pre-lab/gdb.html)安装了riscv64-unknown-elf-gdb
+
+### 预计计划：  
+继续学习[RISC-V手册：一本开源指令集的指南](http://crva.ict.ac.cn/documents/RISC-V-Reader-Chinese-v2p1.pdf)；继续用Rust语言编中小型程序；继续观看[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)；开始实现Lab0的内容
 
