@@ -258,4 +258,22 @@ let column_number=columns.iter().position(|&e| e.trim()==column);
 
 ### 预计计划：  
 继续学习[RISC-V手册：一本开源指令集的指南](http://crva.ict.ac.cn/documents/RISC-V-Reader-Chinese-v2p1.pdf)；继续用Rust语言编中小型程序；继续观看[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)；开始实现Lab0的内容
+<span id="Day0011"></span>
+## Day 11
+
+### 事件1：
+完成了编写1道中小型练习题，是来自[Learn-Python-3-the-Hard-Way](https://github.com/cnR1ce/Learn-Python-3-the-Hard-Way/tree/master/codes)的练习题
+
+### 事件2：
+按照[Lab0 实验指导--rcore tutorial教程第三版](https://rcore-os.github.io/rCore-Tutorial-deploy/docs/lab-0/guide/intro.html)实现了Lab0的内容，得到了正确的输出，并且按照[GDB调试方法](https://rcore-os.github.io/rCore-Tutorial-deploy/docs/pre-lab/gdb.html)实现了调试的界面，手动使用 GDB 对 rCore 进行 debug，一开始的时候不理解让 QEMU在 1234 端口等待调试器接入的含义，后来才明白是开两个终端，一个运行QEMU，另一个运行GDB，GDB连接QEMU来进行调试，但是对Lab0的代码不是完全理解，还要继续看一下相关的知识点
+
+### 事件3：
+大致完成阅读《Rust 编程之道》第十三章的内容
+
+### 事件4：
+实现Lab0的过程中，结合阅读了部分[《使用 Rust 编写操作系统》](https://github.com/rustcc/writing-an-os-in-rust)
+
+### 预计计划：  
+继续学习[RISC-V手册：一本开源指令集的指南](http://crva.ict.ac.cn/documents/RISC-V-Reader-Chinese-v2p1.pdf)；继续用Rust语言编中小型程序；继续观看[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)
+
 
