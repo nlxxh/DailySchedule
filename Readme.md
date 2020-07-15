@@ -275,5 +275,20 @@ let column_number=columns.iter().position(|&e| e.trim()==column);
 
 ### 预计计划：  
 继续学习[RISC-V手册：一本开源指令集的指南](http://crva.ict.ac.cn/documents/RISC-V-Reader-Chinese-v2p1.pdf)；继续用Rust语言编中小型程序；继续观看[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)
+<span id="Day0012"></span>
+## Day 12
+
+### 事件1：
+完成了编写2道中小型练习题，是来自[Learn C The Hard Way 中文版](https://docs.kilvn.com/lcthw-zh/)和[Learn-Python-3-the-Hard-Way](https://github.com/cnR1ce/Learn-Python-3-the-Hard-Way/tree/master/codes)的练习题
+
+### 事件2：
+又重新按照[Lab0 实验指导--rcore tutorial教程第三版](https://rcore-os.github.io/rCore-Tutorial-deploy/docs/lab-0/guide/intro.html)捋了一遍Lab0的流程，回看了部分[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)第二章的内容，基本理解了每一步的目的和Lab0的代码
+
+### 事件3：
+完成了Lab1时钟中断之前的内容，发现了几处教程的错误
+
+### 预计计划：  
+继续学习[RISC-V手册：一本开源指令集的指南](http://crva.ict.ac.cn/documents/RISC-V-Reader-Chinese-v2p1.pdf)；继续用Rust语言编中小型程序；继续观看[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)；继续实现并理解Lab1
+
 
 
