@@ -201,9 +201,9 @@ DailySchedule的格式修改的好看了一点
 * Rust 的面向对象编程特性
 
 ### 事件2：
-完成了编写5道中小型练习题，都完成之后一起上传
-* [Learn C The Hard Way 中文版](https://docs.kilvn.com/lcthw-zh/)的ex10.c、ex16.c
-* [Learn-Python-3-the-Hard-Way](https://github.com/cnR1ce/Learn-Python-3-the-Hard-Way/tree/master/codes)的ex18.py、ex35.py、ex40.py   
+完成了编写5道中小型练习题，Rust版本和原Python或C语言版本已打包在一起上传
+* Learn C The Hard Way 中文版的[ex10.c](https://github.com/nlxxh/DailySchedule/tree/master/rust-code/rust-c/ex15)、[ex16.c](https://github.com/nlxxh/DailySchedule/tree/master/rust-code/rust-c/ex16)
+* Learn-Python-3-the-Hard-Way的[ex18.py](https://github.com/nlxxh/DailySchedule/tree/master/rust-code/rust-python/ex18)、[ex35.py](https://github.com/nlxxh/DailySchedule/tree/master/rust-code/rust-python/ex35)、[ex40.py](https://github.com/nlxxh/DailySchedule/tree/master/rust-code/rust-python/ex40)   
 感觉LeetCode上面的题目以算法为主，不太适合用现在学的Rust来编程，所以就打算使用笨方法系列了，但是[Learn-Python-3-the-Hard-Way](https://github.com/cnR1ce/Learn-Python-3-the-Hard-Way/tree/master/codes)上面的题目有的太简单了，[Learn C The Hard Way 中文版](https://docs.kilvn.com/lcthw-zh/)的题目又有很多大型的数据结构的实现，要精挑细选15道左右还比较困难
 
 ### 事件3：
@@ -294,7 +294,7 @@ let column_number=columns.iter().position(|&e| e.trim()==column);
 
 ### 事件1：
 完成了编写1道中小型练习题
-* [Learn-Python-3-the-Hard-Way](https://github.com/cnR1ce/Learn-Python-3-the-Hard-Way/tree/master/codes)的ex33.py
+* Learn-Python-3-the-Hard-Way的[ex33.py](https://github.com/nlxxh/DailySchedule/tree/master/rust-code/rust-python/ex33)
 
 ### 事件2：
 按照[Lab0 实验指导--rcore tutorial教程第三版](https://rcore-os.github.io/rCore-Tutorial-deploy/docs/lab-0/guide/intro.html)实现了Lab0的内容，得到了正确的输出，并且按照[GDB调试方法](https://rcore-os.github.io/rCore-Tutorial-deploy/docs/pre-lab/gdb.html)实现了调试的界面，手动使用 GDB 对 rCore 进行 debug，一开始的时候不理解让 QEMU在 1234 端口等待调试器接入的含义，后来才明白是开两个终端，一个运行QEMU，另一个运行GDB，GDB连接QEMU来进行调试，但是对Lab0的代码不是完全理解，还要继续看一下相关的知识点
@@ -312,14 +312,24 @@ let column_number=columns.iter().position(|&e| e.trim()==column);
 
 ### 事件1：
 完成了编写2道中小型练习题
-* [Learn C The Hard Way 中文版](https://docs.kilvn.com/lcthw-zh/)的ex15.c
-* [Learn-Python-3-the-Hard-Way](https://github.com/cnR1ce/Learn-Python-3-the-Hard-Way/tree/master/codes)的ex39.py
+* Learn C The Hard Way 中文版的[ex15.c](https://github.com/nlxxh/DailySchedule/tree/master/rust-code/rust-c/ex15)
+* Learn-Python-3-the-Hard-Way的[ex39.py](https://github.com/nlxxh/DailySchedule/tree/master/rust-code/rust-python/ex39)
 
 ### 事件2：
-又重新按照[Lab0 实验指导--rcore tutorial教程第三版](https://rcore-os.github.io/rCore-Tutorial-deploy/docs/lab-0/guide/intro.html)捋了一遍Lab0的流程，回看了部分[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)第二章的内容，基本理解了每一步的目的和Lab0的代码
+又重新按照[Lab0 实验指导--rcore tutorial教程第三版](https://rcore-os.github.io/rCore-Tutorial-deploy/docs/lab-0/guide/intro.html)捋了一遍Lab0的流程，回看了部分[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)第二章的内容，基本理解了Lab0每一步的目的和代码
 
 ### 事件3：
 完成了Lab1时钟中断之前的内容，发现了几处教程的错误
+
+### 预计计划：  
+继续学习[RISC-V手册：一本开源指令集的指南](http://crva.ict.ac.cn/documents/RISC-V-Reader-Chinese-v2p1.pdf)；继续用Rust语言编中小型程序；继续观看[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)；继续实现并理解Lab1
+<span id="Day0013"></span>
+## Day 13
+
+### 事件1：
+完成了编写2道中小型练习题
+* Learn C The Hard Way 中文版的[ex14.c](https://github.com/nlxxh/DailySchedule/tree/master/rust-code/rust-c/ex14)
+* Learn-Python-3-the-Hard-Way的[ex38.py](https://github.com/nlxxh/DailySchedule/tree/master/rust-code/rust-python/ex38)
 
 ### 预计计划：  
 继续学习[RISC-V手册：一本开源指令集的指南](http://crva.ict.ac.cn/documents/RISC-V-Reader-Chinese-v2p1.pdf)；继续用Rust语言编中小型程序；继续观看[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)；继续实现并理解Lab1
