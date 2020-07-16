@@ -70,10 +70,10 @@
 * 猜猜看游戏教程
 * 常见编程概念
 * 认识所有权   
-目前来看，基本的语法和C语言相差不大，也都比较好理解，值得注意的是Rust语言基于表达式的特征，第四章所有权是Rust语言的重点，还没有完全理解，进行了一部分，还没有学完，明天继续。我一直有手写笔记的习惯，学新东西也还是愿意在本子上写写画画一些重点。  
+目前来看，基本的语法和C语言相差不大，也都比较好理解，值得注意的是Rust语言基于表达式的特征，第四章所有权是Rust语言的重点，还没有完全理解，进行了一部分，还没有学完，明天继续。我一直有手写笔记的习惯，学新东西也还是愿意在本子上写写画画一些重点  
 
 ### 事件2：
-虚拟机上安装Rust，小练习题完成下载到虚拟机上，家里的网有些慢，常报timeout的错误，所以安装花了比较久的时间。通过命令行实现了基本的Hello,World和Hello,Cargo的程序，知道Rust语言编译运行的基本流程
+虚拟机上安装Rust，小练习题完成下载到虚拟机上，家里的网有些慢，常报timeout的错误，所以安装花了比较久的时间。通过命令行实现了基本的Hello,World和Hello,Cargo的程序，知道了Rust语言编译运行的基本流程
 
 ### 事件3：
 继续安装电脑重置后消失的软件
@@ -152,7 +152,7 @@
 继续学习[Rust 程序设计语言 简体中文版](https://kaisery.github.io/trpl-zh-cn/title-page.html)，完成到
 * 一个 I/O 项目：构建命令行程序
 * Rust 中的函数式语言功能：迭代器与闭包   
-其中第十二章：一个 I/O 项目：构建命令行程序与《Rust 编程之道》第十章的示例代码相关，因此也进行了一部分《Rust 编程之道》第十章的示例代码的学习。但是始终觉得对引用、copy trait那里理解的不太透彻，查了一些资料，也还没有完全弄明白，主要是引用位于函数返回值或参数时没有找到通用的规则，明天继续研究一下
+其中第十二章：一个 I/O 项目：构建命令行程序与《Rust 编程之道》第十章的示例代码相关，因此也进行了一部分《Rust 编程之道》第十章的示例代码的学习。但是始终觉得对引用、copy trait那里理解的不太透彻，查了一些资料，也还没有完全弄明白，主要是引用位于函数返回值或参数时没有找到通用的规则，还要继续研究一下
 
 ### 事件2：
 继续解决小练习题，完成到
@@ -201,14 +201,45 @@ DailySchedule的格式修改的好看了一点
 * Rust 的面向对象编程特性
 
 ### 事件2：
-完成了编写5道中小型练习题，是来自[Learn C The Hard Way 中文版](https://docs.kilvn.com/lcthw-zh/)和[Learn-Python-3-the-Hard-Way](https://github.com/cnR1ce/Learn-Python-3-the-Hard-Way/tree/master/codes)的练习题，都比较简单
+完成了编写5道中小型练习题，都完成之后一起上传
+* [Learn C The Hard Way 中文版](https://docs.kilvn.com/lcthw-zh/)的ex10.c、ex16.c
+* [Learn-Python-3-the-Hard-Way](https://github.com/cnR1ce/Learn-Python-3-the-Hard-Way/tree/master/codes)的ex18.py、ex35.py、ex40.py   
+感觉LeetCode上面的题目以算法为主，不太适合用现在学的Rust来编程，所以就打算使用笨方法系列了，但是[Learn-Python-3-the-Hard-Way](https://github.com/cnR1ce/Learn-Python-3-the-Hard-Way/tree/master/codes)上面的题目有的太简单了，[Learn C The Hard Way 中文版](https://docs.kilvn.com/lcthw-zh/)的题目又有很多大型的数据结构的实现，要精挑细选15道左右还比较困难
 
 ### 事件3：
-自己编了几个程序，初步搞懂了copy trait；又复习了一下之前觉得比较困难的小练习题[DailySchedule/exercises](https://github.com/nlxxh/DailySchedule/tree/master/exercises)，关于迭代器的方法看
-标准库有点慢，感觉这个[教程](https://blog.csdn.net/guiqulaxi920/article/details/78823541?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.compare&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.compare)还讲的比较细致
+自己编了几个程序，初步搞懂了copy trait;又复习了一下之前做的比较坎坷的小练习题[DailySchedule/exercises](https://github.com/nlxxh/DailySchedule/tree/master/exercises)，有不少收获
+```
+//DailySchedule/exercises/enums/enums3.rs
+enum Message {
+    ChangeColor(u8, u8, u8),
+    ...
+}
+fn process(&mut self, message: Message) {
+        match message{
+              Message::ChangeColor(r, g, b)  => {self.change_color((r,g,b));},//认识到match绑定要求模式中的变量数要和待匹配的变量数一致，即匹配的是一个元组中的三个变量，而不是一个元组
+              ...
+} }
+```
+```
+//DailySchedule/exercises/error_handling/errorsn.rs
+fn read_and_validate(b: &mut dyn io::BufRead) -> Result<PositiveNonzeroInteger, Box<dyn error::Error>> {
+    let num: i64 = line.trim().parse()?;//认识到?运算符在Result<_,_>是Ok时，返回的是Ok中的值，而不是Ok(_)
+    ...
+}
+```
+```
+//DailySchedule/exercises/traits/traits2.rs
+impl AppendBar for Vec<String> {
+    fn append_bar(self) -> Self{
+       let mut v=self;
+       v.push("Bar".to_string());//这个做了比较久，一开始就是写self.push("Bar".to_string());提示返回值类型不匹配才明白   
+       v
+} }
+```
+还有就是threads、arc的部分觉得比较难，而且不太熟练，在做实验中遇到再继续巩固，关于迭代器的方法看标准库有点慢，感觉这个[教程](https://blog.csdn.net/guiqulaxi920/article/details/78823541?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.compare&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.compare)还讲的比较细致
 
 ### 事件4：
-完成了《Rust 编程之道》第十章的示例代码，上传到了[DailySchedule/csv_challenge](https://github.com/nlxxh/DailySchedule/tree/master/csv_challenge)，根据这个示例代码对Rust的模块化编程有了更深入的了解。另外，按照书上的代码我开始不能正确运行，会提示main error:Program("column name doesn't exist in the input file")，发现是core/write.rs的问题，debug发现headers都可以正常输出，那么就是和修改的目标column匹配的问题，经过修改，运行正确
+完成了《Rust 编程之道》第十章的示例代码，上传到了[DailySchedule/csv_challenge](https://github.com/nlxxh/DailySchedule/tree/master/csv_challenge)，根据这个示例代码对Rust的模块化编程有了更深入的了解。另外，按照书上的代码我开始不能正确运行，会提示main error:Program("column name doesn't exist in the input file")，发现是core/write.rs的问题，debug发现headers都可以正常输出，那么就是和修改的目标column匹配的问题，应该是输入的参数还要通过trim方法去掉空格等才能和column匹配，经过修改，运行正确
 ```
 //let column_number=columns.iter().position(|&e| e==column);
 let column_number=columns.iter().position(|&e| e.trim()==column);
@@ -223,7 +254,7 @@ let column_number=columns.iter().position(|&e| e.trim()==column);
 基本完成阅读《Rust 编程之道》第三章的内容，因为已经仔细过了一遍[Rust 程序设计语言 简体中文版](https://kaisery.github.io/trpl-zh-cn/title-page.html)，所以看的比较快
 
 ### 事件2：
-完成了step2 实验的[环境部署](https://rcore-os.github.io/rCore-Tutorial-deploy/docs/pre-lab/env.html)，配置环境花了比较多的时间
+完成了step2 实验的[环境部署](https://rcore-os.github.io/rCore-Tutorial-deploy/docs/pre-lab/env.html)，在虚拟机进行实验，配置环境花了比较多的时间
 
 ### 预计计划：  
 开始step1 risc-v系统结构的学习；继续用Rust语言编中小型程序
@@ -248,7 +279,7 @@ let column_number=columns.iter().position(|&e| e.trim()==column);
 学习了一部分[RISC-V手册：一本开源指令集的指南](http://crva.ict.ac.cn/documents/RISC-V-Reader-Chinese-v2p1.pdf)的第十章内容
 
 ### 事件3：
-观看了[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)前三章的内容，刚开始入门操作系统的内容，进展不是很快，结合[RISC-V手册：一本开源指令集的指南](http://crva.ict.ac.cn/documents/RISC-V-Reader-Chinese-v2p1.pdf)，初步搞懂了中断的处理机制，还需要实验检验
+观看了[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)前三章的内容，刚开始入门操作系统的内容，进展不是很快，结合[RISC-V手册：一本开源指令集的指南](http://crva.ict.ac.cn/documents/RISC-V-Reader-Chinese-v2p1.pdf)，初步搞懂了中断的处理机制，还需要实验检验，计划实验和视频结合的形式学习，看完一部分的视频就去进行对应的实验操作，以加深对知识的印象
 
 ### 事件4：
 完成阅读《Rust 编程之道》第四章的内容
@@ -262,7 +293,8 @@ let column_number=columns.iter().position(|&e| e.trim()==column);
 ## Day 11
 
 ### 事件1：
-完成了编写1道中小型练习题，是来自[Learn-Python-3-the-Hard-Way](https://github.com/cnR1ce/Learn-Python-3-the-Hard-Way/tree/master/codes)的练习题
+完成了编写1道中小型练习题
+* [Learn-Python-3-the-Hard-Way](https://github.com/cnR1ce/Learn-Python-3-the-Hard-Way/tree/master/codes)的ex33.py
 
 ### 事件2：
 按照[Lab0 实验指导--rcore tutorial教程第三版](https://rcore-os.github.io/rCore-Tutorial-deploy/docs/lab-0/guide/intro.html)实现了Lab0的内容，得到了正确的输出，并且按照[GDB调试方法](https://rcore-os.github.io/rCore-Tutorial-deploy/docs/pre-lab/gdb.html)实现了调试的界面，手动使用 GDB 对 rCore 进行 debug，一开始的时候不理解让 QEMU在 1234 端口等待调试器接入的含义，后来才明白是开两个终端，一个运行QEMU，另一个运行GDB，GDB连接QEMU来进行调试，但是对Lab0的代码不是完全理解，还要继续看一下相关的知识点
@@ -279,7 +311,9 @@ let column_number=columns.iter().position(|&e| e.trim()==column);
 ## Day 12
 
 ### 事件1：
-完成了编写2道中小型练习题，是来自[Learn C The Hard Way 中文版](https://docs.kilvn.com/lcthw-zh/)和[Learn-Python-3-the-Hard-Way](https://github.com/cnR1ce/Learn-Python-3-the-Hard-Way/tree/master/codes)的练习题
+完成了编写2道中小型练习题
+* [Learn C The Hard Way 中文版](https://docs.kilvn.com/lcthw-zh/)的ex15.c
+* [Learn-Python-3-the-Hard-Way](https://github.com/cnR1ce/Learn-Python-3-the-Hard-Way/tree/master/codes)的ex39.py
 
 ### 事件2：
 又重新按照[Lab0 实验指导--rcore tutorial教程第三版](https://rcore-os.github.io/rCore-Tutorial-deploy/docs/lab-0/guide/intro.html)捋了一遍Lab0的流程，回看了部分[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)第二章的内容，基本理解了每一步的目的和Lab0的代码
