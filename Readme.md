@@ -319,7 +319,24 @@ let column_number=columns.iter().position(|&e| e.trim()==column);
 又重新按照[Lab0 实验指导--rcore tutorial教程第三版](https://rcore-os.github.io/rCore-Tutorial-deploy/docs/lab-0/guide/intro.html)捋了一遍Lab0的流程，回看了部分[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)第二章的内容，基本理解了Lab0每一步的目的和代码
 
 ### 事件3：
-完成了Lab1时钟中断之前的内容，发现了几处教程的错误
+按照[Lab1 实验指导--rcore tutorial教程第三版](https://rcore-os.github.io/rCore-Tutorial-deploy/docs/lab-1/guide/intro.html)完成了Lab1时钟中断之前的内容，发现了几处教程的错误
+* os/src/interrupt/handler.rs
+```
+//global_asm!(include_str!("./interrupt.asm"));
+global_asm!(include_str!("interrupt.asm"));
+```
+```
+//use riscv::register::stvec;
+use riscv::register::{stvec,scause::Scause};
+```
+* 输出结果
+```
+/*Hello rCore-Tutorial!
+mod interrupt initialized
+panic: 'Interrupted: Exception(Breakpoint)'*/
+mod interrupt initialized
+panic: 'Interrupted: Exception(Breakpoint)'
+```
 
 ### 预计计划：  
 继续学习[RISC-V手册：一本开源指令集的指南](http://crva.ict.ac.cn/documents/RISC-V-Reader-Chinese-v2p1.pdf)；继续用Rust语言编中小型程序；继续观看[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)；继续实现并理解Lab1
