@@ -394,3 +394,14 @@ use super::timer;
 
 ### 预计计划：  
 继续学习[RISC-V手册：一本开源指令集的指南](http://crva.ict.ac.cn/documents/RISC-V-Reader-Chinese-v2p1.pdf)；继续用Rust语言编中小型程序；完成Lab1的学习报告
+<span id="Day0015"></span>
+## Day 15
+
+### 事件1：
+整理完成了Lab1的代码和学习报告，提交在[DailySchedule/Lab/Lab1](https://github.com/nlxxh/DailySchedule/tree/master/Lab/Lab1)
+
+### 事件2：
+观看了[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)第四讲前四节的内容，开始学习了内存分配的知识，今天学习时间不是太多，视频还没有看完，明天继续
+
+### 预计计划：  
+继续学习[RISC-V手册：一本开源指令集的指南](http://crva.ict.ac.cn/documents/RISC-V-Reader-Chinese-v2p1.pdf)；继续用Rust语言编中小型程序；继续观看[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)
