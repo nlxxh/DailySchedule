@@ -14,10 +14,9 @@ mod interrupt;
 global_asm!(include_str!("entry.asm"));
 
 #[no_mangle]
-pub extern "C" fn rust_main() -> ! {
+pub extern "C" fn rust_main()  {
     interrupt::init();
     unsafe{
         llvm_asm!("ebreak"::::"volatile");
-    }
-    unreachable!();
+    };
 }
