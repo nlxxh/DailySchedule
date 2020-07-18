@@ -48,4 +48,62 @@
 * 响应并处理中断
 * 保存和恢复现场
 
-### 
+### 操作流程
+    
+* 触发中断导致中断发生时，硬件帮我们设置中断原因、中断地址，随后就根据 `stvec`直接跳转到中断处理程序
+* 中断处理程序：`SAVE_ALL`保存现场->跳转到中断服务例程->`RESTORE_ALL`恢复现场 
+
+#### 保存和恢复现场
+* Context：中断时保存了各种寄存器的结构体，表示原来程序正在执行所在的上下文
+```
+#[repr(C)]
+pub struct Context {
+    pub x: [usize; 32],     // 32 个通用寄存器
+    pub sstatus: Sstatus,
+    pub sepc: usize
+}
+```
+中断处理程序`_interrupt`：状态的保存，用栈上的一小段空间来把需要保存的全部通用寄存器和 CSR 寄存器(即上下文Context)保存在栈上，保存完之后通过`jal`跳转到 Rust 编写的中断服务例程`handle_interrupt`；而对于恢复，则直接把备份在栈上的内容写回寄存器，和保存是相反的操作，由于涉及到了寄存器级别的操作，需要用汇编来实现，最终通过`sret`返回到sepc指向的地址，即回到触发中断的那条指令所在地址，具体代码不再细述
+
+#### 让CPU能响应中断
+* 把中断入口写入 `stvec` 中  
+`stvec::write(__interrupt as usize, stvec::TrapMode::Direct);`
+* 开启中断使能(时钟中断)
+```
+pub fn init() {
+    unsafe {
+        // 开启 STIE，允许时钟中断
+        sie::set_stimer(); 
+        // 开启 SIE（不是 sie 寄存器），允许内核态被中断打断
+        sstatus::set_sie();
+    }
+    // 值得注意的是，在开启时钟中断的过程中还调用了设置下一次时钟中断的函数，这里是起预处理的作用，预约第一次时钟中断
+    set_next_timeout();
+}
+```
+#### 建立中断服务例程
+* 时钟中断
+```
+fn set_next_timeout() {
+    set_timer(time::read() + INTERVAL);
+}
+//这里值得注意的是，操作系统请求（sbi_call 调用 ecall 指令）SBI 服务来完成时钟中断的设置，OpenSBI 固件在接到 SBI 服务请求后，会帮助 OS 设置下一次要触发时钟中断的时间
+pub fn set_timer(time: usize) {
+    sbi_call(SBI_SET_TIMER, time, 0, 0);
+}
+```
+* 断点中断
+```
+//这里值得注意的是，其中 `sepc` 增加 2 字节，改变中断返回地址防止死循环
+fn breakpoint(context: &mut Context) {
+    println!("Breakpoint at 0x{:x}", context.sepc);
+    context.sepc += 2;
+}
+```
+### 总结
+
+* 这里列出了我个人在实现Lab0时遇到的重点、难点，详细的代码不再赘述
+* 一开始对代码的大框架是可以理解的，但是细节有一些不太懂的地方，后来通过查资料、实践得以解决，具体是：
+  * 模块的互相调用方面：代码的结构是main.rs和interrupt文件夹平级，interrupt文件夹里面有mod.rs、timer.rs等文件，mod.rs文件定义了nit函数，但是main.rs直接声明了`mod interrupt;`并且调用了`interrupt::init();`，开始就不太理解，以为声明的`mod interrupt;`只能是interrupt.rs，后来通过[Rust by Example](https://doc.rust-lang.org/rust-by-example/mod/split.html)知道了这种声明不仅代表interrupt.rs，还可以是interrupt/mod.rs，问题解决
+  * 代码的运行流程方面：开始不太懂代码运行的先后顺序，想用gdb调试一下，但是不知道哪里出了问题，gdb设置断点以后continue一运行就退出了，无法调试，百度以后也无法解决，就放弃了，后来在程序中人为加了几个print输出，得到了基本的运行流程，main.rs的rust_main函数是程序的入口函数，先执行`interrupt::init();`进入mod.rs的init函数，执行`handler::init();`这里把中断处理程序的入口设置好，等待中断的触发，然后是执行`timer::init();`这里相当于已经触发了时钟中断，但是因为时钟中断的时间间隔比较长，所以还没有输出，然后是执行一句print输出"mod interrupt initialized"，此时mod.rs的init函数执行完毕，回到main.rs的rust_main函数，`ebreak`触发了断点中断，执行中断处理程序，在中断服务例程中print输出"Breakpoint at ..."，因为对断点中断执行了`context.sepc += 2;`因此只执行一次，一定的时间之后，时钟中断产生了相应的输出"100 tick 200 tick..."，因为时钟中断的`sepc`不变，就会一次次的执行中断处理程序，形成死循环
+* 第一次实现一个完整的Lab，虽然花了比较久的时间，但是还是有很多的收获，再熟悉一下这些流程之后，应该会考虑自己实现一个类似的操作 
