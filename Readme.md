@@ -306,7 +306,7 @@ let column_number=columns.iter().position(|&e| e.trim()==column);
 实现Lab0的过程中，结合阅读了部分[《使用 Rust 编写操作系统》](https://github.com/rustcc/writing-an-os-in-rust)
 
 ### 预计计划：  
-继续学习[RISC-V手册：一本开源指令集的指南](http://crva.ict.ac.cn/documents/RISC-V-Reader-Chinese-v2p1.pdf)；继续用Rust语言编中小型程序；继续观看[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)
+继续学习[RISC-V手册：一本开源指令集的指南](http://crva.ict.ac.cn/documents/RISC-V-Reader-Chinese-v2p1.pdf)；继续用Rust语言编中小型程序；实现Lab1
 <span id="Day0012"></span>
 ## Day 12
 
@@ -339,7 +339,7 @@ panic: 'Interrupted: Exception(Breakpoint)'
 ```
 
 ### 预计计划：  
-继续学习[RISC-V手册：一本开源指令集的指南](http://crva.ict.ac.cn/documents/RISC-V-Reader-Chinese-v2p1.pdf)；继续用Rust语言编中小型程序；继续观看[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)；继续实现并理解Lab1
+继续用Rust语言编中小型程序；继续实现并理解Lab1
 <span id="Day0013"></span>
 ## Day 13
 
@@ -348,8 +348,49 @@ panic: 'Interrupted: Exception(Breakpoint)'
 * Learn C The Hard Way 中文版的[ex14.c](https://github.com/nlxxh/DailySchedule/tree/master/rust-code/rust-c/ex14)
 * Learn-Python-3-the-Hard-Way的[ex38.py](https://github.com/nlxxh/DailySchedule/tree/master/rust-code/rust-python/ex38)
 
+### 事件2：
+按照[Lab1 实验指导--rcore tutorial教程第三版](https://rcore-os.github.io/rCore-Tutorial-deploy/docs/lab-1/guide/intro.html)完成了Lab1时钟中断的内容，发现了几处教程的错误
+* os/src/main.rs 其中rust_main函数去掉unreachable!()之后，还要将返回类型的！去掉
+```
+//pub extern "C" fn rust_main() -> ! {}
+pub extern "C" fn rust_main()  {}
+```
+* os/src/interrupt/handler.rs
+```
+//use riscv::register::{stvec,scause::Scause};
+use riscv::register::{stvec,scause::{Scause,Trap,Exception,Interrupt}};
+```
+```
+use super::timer;
+```
+```
+/*panic!(
+        "Unresolved interrupt: {:?}\n{:x?}\nstval: {:x}",
+        scause.cause(),
+        context,
+        stval
+    );*/
+/* panic!(
+        "Unresolved interrupt: {:?}\n{:x}\nstval: {:x}",
+        scause.cause(),
+        context.sepc,
+        stval
+    );*/
+```
+### 事件3：
+系统学习了一下git的用法，之前本地仓库和远程仓库一直没有很好的实现同步，向GitHub上传文件有时会出问题，修改好了之后，上传文件更加方便，建立了同步的本地仓库，随时更新，随时上传
+
 ### 预计计划：  
-继续学习[RISC-V手册：一本开源指令集的指南](http://crva.ict.ac.cn/documents/RISC-V-Reader-Chinese-v2p1.pdf)；继续用Rust语言编中小型程序；继续观看[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)；继续实现并理解Lab1
+继续学习[RISC-V手册：一本开源指令集的指南](http://crva.ict.ac.cn/documents/RISC-V-Reader-Chinese-v2p1.pdf)；继续用Rust语言编中小型程序；完成Lab1的学习报告
+<span id="Day0014"></span>
+## Day 14
 
+### 事件1：
+完成了编写1道中小型练习题
+* Learn C The Hard Way 中文版的[ex13.c](https://github.com/nlxxh/DailySchedule/tree/master/rust-code/rust-c/ex13)
 
+### 事件2：
+仔细理解Lab1的实现流程，一些遇到的困难和解决办法会整理在Lab1的学习报告，应该还需要一天才能写完
 
+### 预计计划：  
+继续学习[RISC-V手册：一本开源指令集的指南](http://crva.ict.ac.cn/documents/RISC-V-Reader-Chinese-v2p1.pdf)；继续用Rust语言编中小型程序；完成Lab1的学习报告
