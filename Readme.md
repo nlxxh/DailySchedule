@@ -405,3 +405,14 @@ use super::timer;
 
 ### 预计计划：  
 继续学习[RISC-V手册：一本开源指令集的指南](http://crva.ict.ac.cn/documents/RISC-V-Reader-Chinese-v2p1.pdf)；继续用Rust语言编中小型程序；继续观看[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)
+<span id="Day0016"></span>
+## Day 16
+
+### 事件1：
+参加了第二次线上交流，和大家做了分享，时间比较仓促，没来得及好好准备什么，但是看大家的进度，感觉自己稍微有点落后，要加快速度呀
+
+### 事件2：
+观看完[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)第四讲和第五讲的内容，学习了物理内存管理的连续内存分配和非连续内存分配，比较容易理解，还是要结合实验去巩固这些知识，明天开始做实验，视频上还提出了[RISC-V手册：一本开源指令集的指南](http://crva.ict.ac.cn/documents/RISC-V-Reader-Chinese-v2p1.pdf)的第十章内容比较有帮助，明天也会辅助看一下
+
+### 预计计划：  
+继续学习[RISC-V手册：一本开源指令集的指南](http://crva.ict.ac.cn/documents/RISC-V-Reader-Chinese-v2p1.pdf)；继续用Rust语言编中小型程序；开始学习Lab2
