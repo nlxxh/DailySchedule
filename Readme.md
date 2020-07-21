@@ -416,3 +416,34 @@ use super::timer;
 
 ### 预计计划：  
 继续学习[RISC-V手册：一本开源指令集的指南](http://crva.ict.ac.cn/documents/RISC-V-Reader-Chinese-v2p1.pdf)；继续用Rust语言编中小型程序；开始学习Lab2
+<span id="Day0017"></span>
+## Day 17
+
+### 事件1：
+基本阅读完[RISC-V手册：一本开源指令集的指南](http://crva.ict.ac.cn/documents/RISC-V-Reader-Chinese-v2p1.pdf)第十章的内容，后面虚拟内存的部分和[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)第五讲视频的内容有很多重合，所以只是大致过了一遍
+
+### 事件2：
+按照[Lab2 实验指导--rcore tutorial教程第三版](https://rcore-os.github.io/rCore-Tutorial-deploy/docs/lab-2/guide/intro.html)实现Lab2的内容，发现代码有很多缺失，在[rCore-Tutorial仓库](https://github.com/rcore-os/rCore-Tutorial/tree/master/os)里面找到了完整的代码，实现了Lab2，得到了正确的运行结果，但是感觉代码量比Lab1大了很多，还没能好好理解
+
+### 事件3：
+试图用Rust编一下双向链表，但是我尝试用Box和Rc都各种报错，borrowed、mutable、copy trait等等，改了太久，花了太多时间了，就战略性放弃了，打算再选几个[Learn-Python-3-the-Hard-Way](https://github.com/cnR1ce/Learn-Python-3-the-Hard-Way/tree/master/codes)的练习题做完15道，然后专心看Lab
+
+### 预计计划：  
+整理Lab2的学习报告；用Rust语言编中小型程序结束
+<span id="Day0018"></span>
+## Day 18
+
+### 事件1：
+完成了编写4道中小型练习题
+* Learn-Python-3-the-Hard-Way的[ex32.py](https://github.com/nlxxh/DailySchedule/tree/master/rust-code/rust-python/ex32)
+* Learn-Python-3-the-Hard-Way的[ex17.py](https://github.com/nlxxh/DailySchedule/tree/master/rust-code/rust-python/ex17)
+* Learn-Python-3-the-Hard-Way的[ex21.py](https://github.com/nlxxh/DailySchedule/tree/master/rust-code/rust-python/ex21)
+* Learn-Python-3-the-Hard-Way的[ex26.py](https://github.com/nlxxh/DailySchedule/tree/master/rust-code/rust-python/ex26)
+已经完成了15道中小型练习题的编写，都上传在[DailySchedule/rust-code](https://github.com/nlxxh/DailySchedule/tree/master/rust-code)，编写完整的代码以后，对rust的语法更加熟悉，对Option、match、Result等rust的特有语法也掌握的比较熟练了，但是为了节省时间，没有成功编写复杂的数据结构的代码，总是遇到所有权方面的报错，当时编双向链表的时候就是感觉怎么写都能巧妙的遇上error，也就先放弃了，毕竟还是要以Lab的实现为主
+
+### 事件2：
+整理完成了Lab2的代码和学习报告，提交在[DailySchedule/Lab/Lab2](https://github.com/nlxxh/DailySchedule/tree/master/Lab/Lab2)
+
+### 预计计划：  
+开始实现Lab3；继续观看[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)
+
