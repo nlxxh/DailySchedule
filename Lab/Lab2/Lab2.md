@@ -88,7 +88,8 @@ pub trait Allocator {
 }
 ```
 ```
-// FrameAllocator对Allocator trait 实例化，要求成员分配器allocator实现了Allocator trait，在algorithm/src/allocator提供的StackedAllocator和SegmentTreeAllocator结构体分别实现了        //Allocator trait的链表和线段树算法，具体代码不再详述，所以FrameAllocator通过指定T为StackedAllocator或SegmentTreeAllocator可以得到分配器的new、alloc、dealloc功能
+// FrameAllocator对Allocator trait 实例化，要求成员分配器allocator实现了Allocator trait，在algorithm/src/allocator提供的StackedAllocator和SegmentTreeAllocator结构体分别实现了
+//Allocator trait的链表和线段树算法，具体代码不再详述，所以FrameAllocator通过指定T为StackedAllocator或SegmentTreeAllocator可以得到分配器的new、alloc、dealloc功能
 pub struct FrameAllocator<T: Allocator> {
     /// 可用区间的起始
     start_ppn: PhysicalPageNumber,
@@ -108,8 +109,9 @@ impl<T: Allocator> FrameAllocator<T> {
 }
 ```
  ```
-//这个分配器会以一个 PhysicalPageNumber 的 Range 初始化，然后把起始地址记录下来(FrameAllocator.start_ppn)，把整个区间的长度告诉具体的分配器算法(这里AllocatorImpl默认是StackedAllocator)，  //当分配的时候就从算法中取得一个可用的位置作为 offset，再加上起始地址返回回去(指alloc方法)，这里的Range结构体定义于memory/range.rs，实现的From方法可以得到区间的初始和结束的位置
-//这里使用 spin::Mutex<T> 给这段数据加一把锁，一个线程试图通过 lock() 打开锁来获取内部数据的可变引用，如果钥匙被别的线程所占用，那么这个线程就会一直卡在这里；  
+//这个分配器会以一个 PhysicalPageNumber 的 Range 初始化，然后把起始地址记录下来(FrameAllocator.start_ppn)，把整个区间的长度告诉具体的分配器算法(这里AllocatorImpl默认是StackedAllocator)，
+//当分配的时候就从算法中取得一个可用的位置作为 offset，再加上起始地址返回回去(指alloc方法)，这里的Range结构体定义于memory/range.rs，实现的From方法可以得到区间的初始和结束的位置
+//这里使用 spin::Mutex<T> 给这段数据加一把锁，一个线程试图通过 lock() 打开锁来获取内部数据的可变引用，如果钥匙被别的线程所占用，那么这个线程就会一直卡在这里；
 //直到那个占用了钥匙的线程对内部数据的访问结束，锁被释放，将钥匙交还出来，被卡住的那个线程拿到了钥匙，就可打开锁获取内部引用，访问内部数据
  lazy_static! {
     /// 帧分配器
