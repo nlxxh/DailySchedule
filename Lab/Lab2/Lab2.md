@@ -58,4 +58,62 @@ extern "C" {
 * 通常，我们在分配物理内存时并不是以字节为单位，而是以一物理页(Frame)，即连续的 `4 KB` 字节为单位分配。我们希望用物理页号(PPN)来代表一物理页，实际上代表物理地址范围在`[PPN×4KB,(PPN+1)×4KB)`的一物理页
 * 物理页号与物理页形成一一映射，为了能够使用物理页号这种表达方式，每个物理页的开头地址必须是 `4 KB`的倍数
 #### 分配和回收
+(这里教程的代码不太全，按照rCore-Tutorial完善了完整的代码，这部分的代码有点多，就先对代码的大框逻辑做了理解，一些实现的细节先忽略)
 * `FrameTracker`：在内存中划一片连续区域，作为一个物理帧的标识
+```
+//FrameTracker结构体的成员PhysicalPageNumber在memory/address.rs定义，代表物理页号，实现了`implement_address_to_page_number`宏，实现了From Trait，也自动实现了Into Trait，即通过物理页号与页的大小(`PAGE_SIZE`)相乘，可以得到物理地址，完成了页号与地址的转换
+pub struct FrameTracker(pub(super) PhysicalPageNumber);
+impl FrameTracker {
+    /// 帧的物理地址
+    pub fn address(&self) -> PhysicalAddress {
+        self.0.into()
+    }
+    /// 帧的物理页号
+    pub fn page_number(&self) -> PhysicalPageNumber {
+        self.0
+    }
+}
+```
+* `Allocator`： trait 封装起来的物理页分配器
+```
+/// 分配器：固定容量，每次分配 / 回收一个元素
+pub trait Allocator {
+    /// 给定容量，创建分配器
+    fn new(capacity: usize) -> Self;
+    /// 分配一个元素，无法分配则返回 `None`
+    fn alloc(&mut self) -> Option<usize>;
+    /// 回收一个元素
+    fn dealloc(&mut self, index: usize);
+}
+```
+```
+/// FrameAllocator对Allocator trait 实例化，要求成员分配器allocator实现了Allocator trait，在algorithm/src/allocator提供的StackedAllocator和SegmentTreeAllocator结构体分别实现了Allocator trait的链表和线段树算法，具体代码不再详述，所以FrameAllocator通过指定T为StackedAllocator或SegmentTreeAllocator可以得到分配器的new、alloc、dealloc功能
+pub struct FrameAllocator<T: Allocator> {
+    /// 可用区间的起始
+    start_ppn: PhysicalPageNumber,
+    /// 分配器
+    allocator: T,
+}
+//这里给出alloc方法的代码，可见alloc方法返回的是MemoryResult<FrameTracker>，和前述的FrameTracker结构体构建了联系，即分配成功时，可以得到一个物理帧
+impl<T: Allocator> FrameAllocator<T> {
+  /// 分配帧，如果没有剩余则返回 `Err`
+    pub fn alloc(&mut self) -> MemoryResult<FrameTracker> {
+        self.allocator
+            .alloc()
+            .ok_or("no available frame to allocate")
+            .map(|offset| FrameTracker(self.start_ppn + offset))
+    }   
+    //省略new和dealloc方法
+}
+```
+ ```
+//这个分配器会以一个 PhysicalPageNumber 的 Range 初始化，然后把起始地址记录下来(FrameAllocator.start_ppn)，把整个区间的长度告诉具体的分配器算法(这里AllocatorImpl默认是StackedAllocator)，当分配的时候就从算法中取得一个可用的位置作为 offset，再加上起始地址返回回去(指alloc方法)，这里的Range结构体定义于memory/range.rs，实现的From方法可以得到区间的初始和结束的位置
+//这里使用 spin::Mutex<T> 给这段数据加一把锁，一个线程试图通过 lock() 打开锁来获取内部数据的可变引用，如果钥匙被别的线程所占用，那么这个线程就会一直卡在这里；直到那个占用了钥匙的线程对内部数据的访问结束，锁被释放，将钥匙交还出来，被卡住的那个线程拿到了钥匙，就可打开锁获取内部引用，访问内部数据
+ lazy_static! {
+    /// 帧分配器
+    pub static ref FRAME_ALLOCATOR: Mutex<FrameAllocator<AllocatorImpl>> = Mutex::new(FrameAllocator::new(Range::from(
+            PhysicalPageNumber::ceil(PhysicalAddress::from(*KERNEL_END_ADDRESS))..PhysicalPageNumber::floor(MEMORY_END_ADDRESS),
+        )
+    ));
+}
+```
