@@ -446,4 +446,26 @@ use super::timer;
 
 ### 预计计划：  
 开始实现Lab3；继续观看[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)
+<span id="Day0019"></span>
+## Day 19
+
+### 事件1：
+实现部分Lab3，同步写学习报告，内容比较多，应该还要一天才能完成，但是虽然知识点多，但是感觉代码和知识点的对应比较好，理解起来比较容易
+
+### 事件2：
+学习了[writing-an-os-in-rust](https://github.com/rustcc/writing-an-os-in-rust)的内存分页简介相关内容
+
+### 预计计划：  
+完成Lab3的代码和学习报告；继续观看[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)
+<span id="Day0020"></span>
+## Day 20
+
+### 事件1：
+整理完成了Lab3的代码和学习报告，提交在[DailySchedule/Lab/Lab3](https://github.com/nlxxh/DailySchedule/tree/master/Lab/Lab3)
+
+### 事件2：
+学习了[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)第九讲的部分内容，为Lab4做准备，还没有学完，明天继续
+
+### 预计计划：  
+继续观看[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)；开始实现Lab4
 
