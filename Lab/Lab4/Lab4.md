@@ -54,9 +54,6 @@ pub struct Context {
     pub sepc:usize,
 }
 ```
-```
-
-```
 #### 进程的表示
 
 * 每个进程会包括：
