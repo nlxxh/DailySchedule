@@ -20,9 +20,10 @@
   * 线程执行上下文`context`：线程不在执行时，需要保存其上下文，这样之后才能够将其恢复，继续运行，上下文由`context`类型保存
   * 所属进程的记号`process`：同一个进程中的多个线程，会共享页表、打开文件等信息。因此，我们将它们提取出来放到线程中
   * 内核栈：中断处理拥有的单独的栈
-* 赋予线程`Thread`准备执行一个线程`prepare`、
-  * `prepare`方法：激活所属的进程的页表，同时将线程执行上下文`context`放至内核栈顶
-  * 
+* 赋予线程`Thread`准备执行一个线程`prepare`、发生时钟中断后暂停线程并保存状态`park`、创建一个线程`new`、上锁并获得可变变量inner的引用`inner`的方法
+  * `prepare`方法：提供`Thread.process.inner().memory_set.activate()`激活所属的进程的页表，同时将线程执行上下文`context`放至内核栈顶
+  * `park`方法：检查当前线程的状态`Thread.inner().context`是否为None，同时将提供的状态'context'保存到线程
+  * `new`方法：调用所属进程的`process.alloc_page_range `方法，让所属进程分配并映射一段连续虚拟空间，作为线程的栈，同时构建线程的上下文`context`，其中栈顶指针指向新构建的线程栈，然后用`Arc<Thread>`把线程的信息打包，构建线程
 ```
 /// 线程 ID 使用 'isize'，负数表示错误
 pub type ThreadID = isize;
@@ -75,5 +76,21 @@ pub struct Process {
 pub struct ProcessInner {
     /// 进程中的线程公用页表 / 内存映射
     pub memory_set: MemorySet,
+}
+```
+
+#### 处理器的表示
+* 
+```
+/// 线程调度和管理
+///
+/// 休眠线程会从调度器中移除，单独保存。在它们被唤醒之前，不会被调度器安排。
+pub struct Processor {
+    /// 当前正在执行的线程
+    current_thread: Option<Arc<Thread>>,
+    /// 线程调度器，记录活跃线程
+    scheduler: SchedulerImpl<Arc<Thread>>,
+    /// 保存休眠线程
+    sleeping_threads: HashSet<Arc<Thread>>,
 }
 ```
