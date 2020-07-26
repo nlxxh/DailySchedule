@@ -468,4 +468,22 @@ use super::timer;
 
 ### 预计计划：  
 继续观看[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)；开始实现Lab4
+<span id="Day0021"></span>
+## Day 21
 
+### 事件1：
+按照[Lab4 实验指导--rcore tutorial教程第三版](https://rcore-os.github.io/rCore-Tutorial-deploy/docs/lab-4/guide/intro.html)开始实现Lab4
+
+### 事件2：
+学习了[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)第九讲和第十讲的部分内容，这几天学校来这边招生，会去帮一下忙，进度可能要拖慢了
+
+### 预计计划：  
+继续观看[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)；继续实现Lab4
+<span id="Day0022"></span>
+## Day 22
+
+### 事件1：
+按照[Lab4 实验指导--rcore tutorial教程第三版](https://rcore-os.github.io/rCore-Tutorial-deploy/docs/lab-4/guide/intro.html)继续实现Lab4
+
+### 预计计划：  
+继续观看[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)；继续实现Lab4
