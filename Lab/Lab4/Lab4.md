@@ -104,7 +104,8 @@ pub struct Processor {
 ```
 /// 在一个时钟中断时，替换掉 context
 pub fn prepare_next_thread(&mut self) -> *mut Context {
-    // 向调度器询问下一个线程，调度器 scheduler 具有 Scheduler Trait，定义在 algorithm/src/scheduler/mod.rs，其中的 get_next() 方法能够返回下一个等待执行的线程，其余方法不再赘述
+    // 向调度器询问下一个线程，调度器 scheduler 具有 Scheduler Trait，定义在 algorithm/src/scheduler/mod.rs，   
+    // 其中的 get_next() 方法能够返回下一个等待执行的线程，其余方法不再赘述
     if let Some(next_thread) = self.scheduler.get_next() {
         // 准备启动下一个线程
         let context = next_thread.prepare();
@@ -318,7 +319,9 @@ pub extern "C" fn rust_main() -> ! {
     }
     // 获取第一个线程的 Context，返回值 context 是把第一个线程的 Context 放入内核栈之后的栈顶指针
     let context = PROCESSOR.lock().prepare_next_thread();
-    // 启动第一个线程，这里通过参数 context 给 sscratch 赋值，即 sscatch 已经保存内核栈指针，而中断一直在进行，每次时钟中断到达，保存上一个线程的 Context 之后，就会调用 handle_interrupt 函数，如果当前线程已经执行完 sample_process，即当前线程已经标记为结束，会产生相应的输出，并且准备下一个线程，如果当前线程还没结束，就判断中断原因，进行对应的操作，直到下一个线程已经不存在，也就是 prepare_next_thread 函数中，判断没有活跃进程和休眠进程的情况，则退出
+    // 启动第一个线程，这里通过参数 context 给 sscratch 赋值，即 sscatch 已经保存内核栈指针，而中断一直在进行，每次时钟中断到达，保存上一个线程的 Context 之后，       
+    // 就会调用 handle_interrupt 函数，如果当前线程已经执行完 sample_process，即当前线程已经标记为结束，会产生相应的输出，并且准备下一个线程，如果当前线程还没结束，   
+    // 就判断中断原因，进行对应的操作，直到下一个线程已经不存在，也就是 prepare_next_thread 函数中，判断没有活跃进程和休眠进程的情况，则退出
     unsafe { __restore(context as usize) };
     unreachable!()
 }
