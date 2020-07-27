@@ -1,0 +1,24 @@
+[package]
+name = "os"
+version = "0.1.0"
+authors = ["ryt"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+riscv={git="https://github.com/rcore-os/riscv",features=["inline-asm"]}
+buddy_system_allocator="0.3"
+lazy_static={version="1.4.0",features=["spin_no_std"]}
+bit_field="0.10.0"
+algorithm = { path = 'src/algorithm' }
+bitflags = "1.2.1"
+spin = "0.5.2"
+xmas-elf = "0.7.0"
+hashbrown = "0.8.1"
+
+[profile.dev]
+panic="abort"
+
+[profile.release]
+panic="abort"
