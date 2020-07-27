@@ -85,7 +85,8 @@ pub struct ProcessInner {
     
 ```
 lazy_static! {
-    /// 全局的 [`Processor`]，这里的 Lock 封装了 spin::Mutex，而在其基础上进一步关闭了中断。这是因为我们（以后）在内核线程中也有可能访问 PROCESSOR，但是此时我们不希望它被时钟打断，这样在中断处理中就无法访问 PROCESSOR 了，因为它已经被锁住
+    /// 全局的 [`Processor`]，这里的 Lock 封装了 spin::Mutex，而在其基础上进一步关闭了中断。这是因为我们（以后）在内核线程中也有可能访问 PROCESSOR，
+    /// 但是此时我们不希望它被时钟打断，这样在中断处理中就无法访问 PROCESSOR 了，因为它已经被锁住
     pub static ref PROCESSOR: Lock<Processor> = Lock::new(Processor::default());
 }
 ```
