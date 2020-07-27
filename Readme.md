@@ -487,3 +487,25 @@ use super::timer;
 
 ### 预计计划：  
 继续观看[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)；继续实现Lab4
+<span id="Day0023"></span>
+## Day 23
+
+### 事件1：
+按照[Lab4 实验指导--rcore tutorial教程第三版](https://rcore-os.github.io/rCore-Tutorial-deploy/docs/lab-4/guide/intro.html)继续实现Lab4，明天Lab4一定要完成了，ddl很紧迫的情况下，学习时间又偏偏少了，1号之前还有2个Lab，不慌不慌，应该还是来得及的
+
+### 事件2：
+完成rCore的总结报告，通过pr提交
+
+### 预计计划：  
+继续观看[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)；继续实现Lab4
+<span id="Day0024"></span>
+## Day 24
+
+### 事件1：
+整理完成了Lab4的代码和学习报告，提交在[DailySchedule/Lab/Lab4](https://github.com/nlxxh/DailySchedule/tree/master/Lab/Lab4)
+
+### 事件2：
+开始实现Lab5
+
+### 预计计划：  
+继续实现Lab5和Lab6
