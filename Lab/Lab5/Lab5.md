@@ -109,3 +109,37 @@ struct VirtIOBlkDriver(Mutex<VirtIOBlk<'static>>);
 * `Driver`作为一个核心`trait`为上提供实现，上层也就是`Driver`的使用侧`BlockDevice`（设备的抽象），而下层则是`Driver`的实现侧`VirtIOBlkDriver`（设备的实现）
 
 ### 文件系统
+
+* 在 QEMU 运行的时候加入选项，选择 QEMU 支持的 virtio 协议，我们引入了一个磁盘镜像文件`TEST_IMG`，这个文件的打包是由`rcore-fs-fuse`工具来完成的。`rcore-fs-fuse`工具会根据不同的格式把目录的文件封装到一个文件系统中，并把文件系统封装为一个磁盘镜像文件，然后我们把这个镜像文件像设备一样挂载在 QEMU 上，QEMU 就把它模拟为一个块设备了
+```
+# 运行 QEMU
+qemu: build
+    @qemu-system-riscv64 \
+            -machine virt \
+            -nographic \
+            -bios default \
+            -device loader,file=$(BIN_FILE),addr=0x80200000 \
+            -drive file=$(TEST_IMG),format=raw,id=sfs \      # 模拟存储设备
+            -device virtio-blk-device,drive=sfs              # 以 virtio Block Device 的形式挂载到 virtio 总线上
+```        
+* 要让操作系统理解块设备里面的文件系统，要存取根目录的`INode`(对一个文件的位置抽象，目录也是文件的一种)，后面对于文件系统的操作都可以通过根目录来实现，而我们要找到全部设备驱动中的第一个存储设备作为根目录
+```
+lazy_static! {
+    /// 根文件系统的根目录的 INode
+    pub static ref ROOT_INODE: Arc<dyn INode> = {
+        // 选择第一个块设备
+        for driver in DRIVERS.read().iter() {
+            if driver.device_type() == DeviceType::Block {
+                let device = BlockDevice(driver.clone());
+                // 动态分配一段内存空间作为设备 Cache
+                // BlockCache::new(device, BLOCK_CACHE_CAPACITY) 可以把 device 自动变为一个有 Cache 的设备，块设备的 Cache 块个数是 BLOCK_CACHE_CAPACITY
+                let device_with_cache = Arc::new(BlockCache::new(device, BLOCK_CACHE_CAPACITY));
+                return SimpleFileSystem::open(device_with_cache)
+                    .expect("failed to open SFS")
+                    .root_inode();
+            }
+        }
+        panic!("failed to load fs")
+    };
+}
+```
