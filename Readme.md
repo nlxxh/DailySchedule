@@ -509,3 +509,25 @@ use super::timer;
 
 ### 预计计划：  
 继续实现Lab5和Lab6
+<span id="Day0025"></span>
+## Day 25
+
+### 事件1：
+观看[操作系统(RISC-V)](https://next.xuetangx.com/course/thu08091002729/3175284?fromArray=learn_title)第十七讲的内容，准备学习Lab5的文件系统
+
+### 事件2：
+开始实现Lab5，Lab5的内容和前几次实验相比不算多，但是很多概念都不太熟悉，所以大概还要一天才能完成
+
+### 事件3：
+收到通知，通过了第一阶段的学习，有点小激动~虽然学校开不了复课证明，但是还是可以参加 Hackathon 的活动，那么就马上要去深圳啦
+
+### 预计计划：  
+继续实现Lab5和Lab6
+<span id="Day0026"></span>
+## Day 26
+
+### 事件1：
+整理完成了Lab5代码和学习报告，提交在[DailySchedule/Lab/Lab5](https://github.com/nlxxh/DailySchedule/tree/master/Lab/Lab5)
+
+### 预计计划：  
+实现Lab6
