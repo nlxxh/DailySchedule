@@ -1,0 +1,9 @@
+[package]
+name = "algorithm"
+version = "0.1.0"
+authors = ["ryt"]
+edition = "2018"
+
+[dependencies]
+bit_field = "0.10.0"
+lazy_static={version="1.4.0",features=["spin_no_std"]}
