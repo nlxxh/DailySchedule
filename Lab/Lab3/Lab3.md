@@ -234,7 +234,7 @@ pub fn find_entry(&mut self, vpn: VirtualPageNumber) -> MemoryResult<&mut PageTa
 #### 封装所有内存段和映射关系
 
 * `MemorySet`：把内核的每个段根据不同的属性写入封装的`Mapping`中，然后形成一个新的结构`MemorySet`给线程使用。所以，每个线程都将会拥有一个`MemorySet`，其中存的将会是「它看到的虚拟内存空间分成的内存段」和「这些段中包含的虚拟页到物理页的映射」
-  * 赋予`MemorySet`创建内核重映射`new_kernel`、激活页表`activate`、通过elf文件创建内存映射`from_elf`、添加一个Segment的内存映射`add_segment`、移除一个Segment的内存映射`remove_segment`、检测一段内存区域和已有的是否有重叠`overlap_with`的方法
+  * 赋予`MemorySet`创建内核重映射`new_kernel`、激活页表`activate`、添加一个Segment的内存映射`add_segment`、移除一个Segment的内存映射`remove_segment`、检测一段内存区域和已有的是否有重叠`overlap_with`的方法
     * `new_kernel`方法：建立每个内存段的`Segment`结构体，存入`MemorySet.segments`，包括`.text 段，r-x`,`.rodata 段，r--`,`.data 段，rw-`,`.bss 段，rw-`,`剩余内存空间，rw-`，同时，将每个字段在页表中进行映射，即对每个字段调用`Mapping.map`方法，存入`MemorySet.mapping`
 ```
 /// 一个进程所有关于内存空间管理的信息
