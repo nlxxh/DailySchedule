@@ -5,7 +5,7 @@
 * 我们要为用户程序提供一个类似的没有 Rust std 标准运行时依赖的极简运行时环境
 
 ```
-// 目录结构
+// 目录结构(不完整)
 rCore-Tutorial
   - os
   - user
@@ -93,3 +93,93 @@ pub fn from_elf(file: &ElfFile, is_user: bool) -> MemoryResult<MemorySet> {
 * `MemorySet.add_segment()`方法调用了 `MemorySet.mapping.map()`方法，即建立虚实地址的映射，这里需要分配页面再进行映射。对于一个页面，有其物理地址、虚拟地址和待加载数据的地址，不是从待加载数据的地址拷贝到页面的虚拟地址，因为，在目前的框架中，只有当线程将要运行时，才会加载其页表。因此，除非我们额外的在每映射一个页面之后，就更新一次页表并且刷新 TLB，否则此时的虚拟地址是无法访问的。但是，我们通过分配器得到了页面的物理地址，而这个物理地址实际上已经在内核的线性映射当中了。所以，这里实际上用的是物理地址来写入数据
 
 ### 实现系统调用
+
+#### 用户程序中调用系统调用
+
+* 在用户程序中调用系统调用比较容易，就像我们之前在操作系统中调用`sbi_call`一样，只需要符合规则传递参数即可。而且这一次我们甚至不需要参考任何标准，每个人都可以为自己的操作系统实现自己的标准
+  * 这里实现了读取字符`sys_read`、打印字符串`sys_write`和退出并返回数值`sys_exit`三个简单的系统调用，都是通过调用`syscall`函数并且传入不同的参数来实现的
+
+```
+// user/src/syscall.rs：
+/// 将参数放在对应寄存器中，并执行 `ecall`
+fn syscall(id: usize, arg0: usize, arg1: usize, arg2: usize) -> isize {
+    // 返回值
+    let mut ret;
+    unsafe {
+        llvm_asm!("ecall"
+            : "={x10}" (ret)
+            : "{x10}" (arg0), "{x11}" (arg1), "{x12}" (arg2), "{x17}" (id)
+            : "memory"      // 如果汇编可能改变内存，则需要加入 memory 选项
+            : "volatile"); // 防止编译器做激进的优化（如调换指令顺序等破坏 SBI 调用行为的优化）
+    }
+    ret
+}
+```
+#### 避免忙等待
+
+* 如果用户程序需要获取从控制台输入的字符，但是此时并没有任何字符到来。那么，程序将被阻塞，而操作系统的职责就是尽量减少线程执行无用阻塞占用 CPU 的时间，而是将这段时间分配给其他可以执行的线程。
+
+#### 操作系统中实现系统调用
+
+* 在操作系统中，系统调用的实现和中断处理一样，有同样的入口，而针对不同的参数设置不同的处理流程。把系统调用的处理结果分为三类：
+  * 返回一个数值，程序继续执行
+  * 程序进入等待
+  * 程序将被终止
+  
+```
+/// 系统调用在内核之内的返回值
+pub(super) enum SyscallResult {
+    /// 继续执行，带返回值
+    Proceed(isize),
+    /// 记录返回值，但暂存当前线程
+    Park(isize),
+    /// 丢弃当前 context，调度下一个线程继续执行
+    Kill,
+}
+```
+* 系统调用的处理流程：
+  * 首先，从相应的寄存器中取出调用代号和参数
+  * 根据调用代号，进入不同的处理流程，得到处理结果
+    * 返回数值并继续执行：返回值存放在 x10 寄存器，sepc += 4，继续此 context 的执行
+    * 程序进入等待：同样需要更新 x10 和 sepc，但是需要将当前线程标记为等待，切换其他线程来执行
+    * 程序终止：不需要考虑系统调用的返回，直接删除线程
+```
+/// 系统调用的总入口
+pub fn syscall_handler(context: &mut Context) -> *mut Context {
+    // 无论如何处理，一定会跳过当前的 ecall 指令
+    context.sepc += 4;
+
+    let syscall_id = context.x[17];
+    let args = [context.x[10], context.x[11], context.x[12]];
+
+    let result = match syscall_id {
+        SYS_READ => sys_read(args[0], args[1] as *mut u8, args[2]),
+        SYS_WRITE => sys_write(args[0], args[1] as *mut u8, args[2]),
+        SYS_EXIT => sys_exit(args[0]),
+        _ => {
+            println!("unimplemented syscall: {}", syscall_id);
+            SyscallResult::Kill
+        }
+    };
+
+    match result {
+        SyscallResult::Proceed(ret) => {
+            // 将返回值放入 context 中
+            context.x[10] = ret as usize;
+            context
+        }
+        SyscallResult::Park(ret) => {
+            // 将返回值放入 context 中
+            context.x[10] = ret as usize;
+            // 保存 context，准备下一个线程
+            PROCESSOR.lock().park_current_thread(context);
+            PROCESSOR.lock().prepare_next_thread()
+        }
+        SyscallResult::Kill => {
+            // 终止，跳转到 PROCESSOR 调度的下一个线程
+            PROCESSOR.lock().kill_current_thread();
+            PROCESSOR.lock().prepare_next_thread()
+        }
+    }
+}
+```
