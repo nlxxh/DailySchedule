@@ -127,6 +127,7 @@ fn syscall(id: usize, arg0: usize, arg1: usize, arg2: usize) -> isize {
   * 程序将被终止
   
 ```
+// os/src/kernel/syscall.rs：
 /// 系统调用在内核之内的返回值
 pub(super) enum SyscallResult {
     /// 继续执行，带返回值
@@ -144,14 +145,15 @@ pub(super) enum SyscallResult {
     * 程序进入等待：同样需要更新 x10 和 sepc，但是需要将当前线程标记为等待，切换其他线程来执行
     * 程序终止：不需要考虑系统调用的返回，直接删除线程
 ```
+// os/src/kernel/syscall.rs：
 /// 系统调用的总入口
 pub fn syscall_handler(context: &mut Context) -> *mut Context {
     // 无论如何处理，一定会跳过当前的 ecall 指令
     context.sepc += 4;
-
+    // 从寄存器中取出调用代号和参数
     let syscall_id = context.x[17];
     let args = [context.x[10], context.x[11], context.x[12]];
-
+    // 根据调用代号，进入不同的处理流程
     let result = match syscall_id {
         SYS_READ => sys_read(args[0], args[1] as *mut u8, args[2]),
         SYS_WRITE => sys_write(args[0], args[1] as *mut u8, args[2]),
@@ -161,7 +163,7 @@ pub fn syscall_handler(context: &mut Context) -> *mut Context {
             SyscallResult::Kill
         }
     };
-
+    // 根据系统调用在内核之内的不同返回值，进入不同的处理流程
     match result {
         SyscallResult::Proceed(ret) => {
             // 将返回值放入 context 中
@@ -183,3 +185,6 @@ pub fn syscall_handler(context: &mut Context) -> *mut Context {
     }
 }
 ```
+#### 处理文件描述符
+
+* 
